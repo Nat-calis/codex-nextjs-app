@@ -33,6 +33,12 @@ export default function Home() {
             >
               Dashboard
             </Link>
+            <Link
+              className="rounded-lg border border-neutral-300 px-5 py-3 text-sm font-semibold text-neutral-700 transition hover:border-neutral-950 hover:text-neutral-950"
+              href="/journey"
+            >
+              Keep Going (3D)
+            </Link>
           </div>
         </div>
 

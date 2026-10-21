@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "record:journey": "node scripts/record-journey.mjs journey-frames journey.mp4",
     "db:setup": "node scripts/setup-db.mjs",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
@@ -14,11 +15,13 @@
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
+    "@types/three": "^0.186.0",
     "bcryptjs": "^3.0.3",
     "jose": "^6.2.3",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "latest",
@@ -27,6 +30,7 @@
     "@types/react-dom": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
+    "playwright": "^1.56.1",
     "prisma": "^6.19.3",
     "tailwindcss": "latest",
     "typescript": "latest"
