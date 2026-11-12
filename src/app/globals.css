@@ -25,3 +25,136 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+/* ------------------------------------------------------------------ */
+/*  Free Cash Flow game: "Risograph Ledger" style                       */
+/* ------------------------------------------------------------------ */
+.riso-root {
+  --paper: #f4ecdc;
+  --ink: #1e1b2e;
+  --pink: #ff4fa3;
+  --teal: #00a19b;
+  --yellow: #ffd23f;
+  --blue: #3b5bdb;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  touch-action: none;
+  user-select: none;
+}
+.riso-canvas { position: absolute; inset: 0; }
+.riso-halftone {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(59, 91, 219, 0.22) 1px, transparent 1.4px);
+  background-size: 6px 6px;
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+}
+.riso-grain {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0.22; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.1 0 0 0 0 0.18 0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.riso-hud {
+  position: absolute; top: 12px; left: 12px; right: 12px;
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center; pointer-events: none;
+}
+.riso-chip {
+  display: inline-flex; align-items: baseline; gap: 6px;
+  background: var(--paper); border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--pink);
+  padding: 4px 10px; font-weight: 800; font-size: 14px;
+}
+.riso-chip-ink { background: var(--ink); color: var(--paper); box-shadow: 4px 4px 0 var(--teal); font-size: 18px; }
+.riso-chip-yellow { background: var(--yellow); }
+.riso-k { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; }
+.riso-v { font-variant-numeric: tabular-nums; }
+.riso-op { color: var(--pink); font-size: 16px; }
+.riso-timer {
+  flex-basis: 100%; height: 8px; border: 3px solid var(--ink); background: var(--paper);
+  box-shadow: 4px 4px 0 var(--blue);
+}
+.riso-timer-fill { height: 100%; background: repeating-linear-gradient(45deg, var(--teal) 0 8px, var(--yellow) 8px 16px); }
+
+.riso-overlay {
+  position: absolute; inset: 0; display: grid; place-items: center; padding: 16px;
+  background: rgba(244, 236, 220, 0.55); backdrop-filter: blur(2px); overflow-y: auto;
+}
+.riso-card {
+  position: relative; width: 100%; max-width: 420px; background: var(--paper);
+  border: 4px solid var(--ink); box-shadow: 10px 10px 0 var(--pink), 18px 18px 0 var(--blue);
+  padding: 24px; margin: auto;
+}
+.riso-card-wide { max-width: 560px; }
+.riso-kicker { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); font-weight: 800; }
+.riso-title, .riso-title-sm, .riso-grade-letter {
+  font-family: "Arial Black", Impact, system-ui, sans-serif; font-weight: 900; line-height: 0.92;
+  text-shadow: 3px 3px 0 var(--pink), -2px -2px 0 rgba(59, 91, 219, 0.6);
+}
+.riso-title { font-size: clamp(44px, 11vw, 76px); margin: 8px 0 10px; }
+.riso-title-sm { font-size: 26px; margin: 6px 0 12px; }
+.riso-formula {
+  display: inline-block; background: var(--yellow); border: 3px solid var(--ink);
+  padding: 4px 10px; font-weight: 800; transform: rotate(-1.5deg); margin-bottom: 14px;
+}
+.riso-legend { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 6px; font-size: 13px; }
+.riso-swatch { display: inline-block; width: 14px; height: 14px; border: 2px solid var(--ink); vertical-align: -2px; margin-right: 4px; }
+.riso-small { font-size: 12px; opacity: 0.75; }
+.riso-tip {
+  font-size: 13px; line-height: 1.5; border-left: 6px solid var(--teal); background: rgba(0, 161, 155, 0.1);
+  padding: 8px 12px; margin: 14px 0;
+}
+.riso-btn {
+  display: inline-block; margin-top: 8px; font: inherit; font-weight: 900; font-size: 16px; text-transform: uppercase;
+  letter-spacing: 0.06em; background: var(--ink); color: var(--paper); border: 3px solid var(--ink);
+  padding: 10px 18px; box-shadow: 5px 5px 0 var(--yellow); cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+.riso-btn:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--yellow); }
+.riso-btn:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--yellow); }
+.riso-btn:focus-visible { outline: 3px dashed var(--pink); outline-offset: 4px; }
+.riso-btn-ghost { background: var(--paper); color: var(--ink); }
+
+.riso-table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+.riso-table td { padding: 4px 0; border-bottom: 1px dashed rgba(59, 91, 219, 0.4); }
+.riso-table td:last-child { text-align: right; font-weight: 800; }
+.riso-sum td { border-top: 2px solid var(--ink); font-weight: 800; }
+.riso-total td { background: var(--yellow); border: 3px solid var(--ink); padding: 6px 8px; font-weight: 900; font-size: 15px; }
+.riso-note td { opacity: 0.65; font-size: 12px; border: none; }
+
+.riso-chart { display: flex; gap: 6px; height: 120px; margin-top: 16px; }
+.riso-chart-col { flex: 1; display: flex; flex-direction: column; position: relative; }
+.riso-chart-half { flex: 1; display: flex; align-items: flex-end; }
+.riso-chart-neg { align-items: flex-start; border-top: 2px solid var(--ink); }
+.riso-bar { width: 100%; border: 2px solid var(--ink); }
+.riso-bar-pos { background: repeating-linear-gradient(-45deg, var(--teal) 0 5px, #2bc4bd 5px 10px); }
+.riso-bar-neg { background: repeating-linear-gradient(-45deg, var(--pink) 0 5px, #ff7dbd 5px 10px); }
+.riso-chart-label { font-size: 10px; font-weight: 800; text-align: center; }
+.riso-chart-value { position: absolute; top: -2px; width: 100%; text-align: center; font-size: 9px; font-weight: 800; }
+
+.riso-grade { display: flex; gap: 16px; align-items: center; margin: 8px 0; }
+.riso-grade-letter {
+  font-size: 84px; background: var(--yellow); border: 4px solid var(--ink); padding: 4px 14px;
+  transform: rotate(-4deg);
+}
+
+.riso-pad {
+  position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+  display: none; gap: 12px;
+}
+.riso-pad button {
+  width: 64px; height: 64px; font-size: 24px; background: var(--paper); color: var(--ink);
+  border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--pink); cursor: pointer;
+}
+.riso-pad button:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--pink); }
+@media (pointer: coarse), (max-width: 640px) {
+  .riso-pad { display: flex; }
+  .riso-chip { font-size: 12px; padding: 3px 7px; }
+  .riso-eq .riso-k { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .riso-btn { transition: none; }
+}

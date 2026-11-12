@@ -16,6 +16,12 @@ export default function Home() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
+              className="rounded-lg bg-pink-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-pink-600"
+              href="/game"
+            >
+              Play Free Cash Flow 3D
+            </Link>
+            <Link
               className="rounded-lg bg-neutral-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800"
               href="/register"
             >
